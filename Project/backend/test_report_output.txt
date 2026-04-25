@@ -1,0 +1,21 @@
+--- MALICIOUS REPORT ---
+## VirusTotal Result
+(Current Status: **MALICIOUS**)  
+5/90 vendors flagged this URL as **malicious** (0/90 suspicious, 85/90 harmless). **Malicious count > 0**.
+
+## Domain Intelligence
+Domain age and registrar information not provided. Unable to assess whether the domain is newly registered (< 30 days).
+
+## Malicious Code Explanation
+The URL is reported with a **malicious** verdict by VirusTotal (score 80). Five security vendors flagged it as malicious, indicating a strong malicious indicator. No additional code or payload was supplied for further analysis.
+
+--- CLEAN REPORT ---
+## VirusTotal Result
+(Current Status: CLEAN)  
+Virustotal stats: **0/90** malicious, **0/90** suspicious, **90/90** harmless. (No malicious detections.)
+
+## Domain Intelligence
+No domain age or registrar information was provided in the data. Based on the available CTI, the domain is considered clean and there are no indications of it being newly registered or suspicious.
+
+## Malicious Code Explanation
+No malicious code or indicators were found.

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Guard</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="popup">
+        <!-- Header -->
+        <div class="popup-header">
+            <div class="popup-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" fill="url(#shield-grad)" stroke="#60a5fa"
+                        stroke-width="1.5" />
+                    <path d="M12 8v4M12 15h.01" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="shield-grad" x1="3" y1="2" x2="21" y2="22">
+                            <stop stop-color="#1e3a5f" />
+                            <stop offset="1" stop-color="#0f172a" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="popup-title">Gmail Guard</span>
+            </div>
+            <div id="status-dot" class="status-dot status-checking" title="Checking connection..."></div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="popup-card">
+            <div id="status-text" class="status-text">Checking backend...</div>
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-value" id="stat-checked">—</div>
+                    <div class="stat-label">Checked</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value stat-flagged" id="stat-flagged">—</div>
+                    <div class="stat-label">Flagged</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="popup-section">
+            <label class="input-label" for="backend-url">Backend URL</label>
+            <div class="input-row">
+                <input type="text" id="backend-url" class="input-field" placeholder="http://127.0.0.1:8000" />
+                <button id="save-btn" class="btn btn-primary" title="Save">✓</button>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="popup-actions">
+            <a href="http://localhost:5173" target="_blank" class="btn btn-secondary btn-full">
+                Open Dashboard ↗
+            </a>
+            <button id="clear-btn" class="btn btn-ghost btn-full">
+                Clear Cache & Stats
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="popup-footer">
+            URL Threat Analyzer v1.0
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

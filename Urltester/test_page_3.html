@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Test Page 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .indicator {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .indicator:hover {
+            border-color: rgba(167, 139, 250, 0.3);
+            background: rgba(167, 139, 250, 0.05);
+        }
+
+        .indicator .icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .indicator h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 4px;
+        }
+
+        .indicator p {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .indicator code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #f472b6;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6b7280;
+            letter-spacing: 0.5px;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <span class="badge pulse">⚠ Threat Simulation</span>
+        <h1>Test Page 3</h1>
+        <p class="subtitle">
+            This page simulates a redirect chain, crypto miner behavior, and DNS rebinding loop
+            for security analysis testing purposes.
+        </p>
+
+        <div class="indicator">
+            <span class="icon">🔀</span>
+            <div>
+                <h3>Redirect Chain (ID 55)</h3>
+                <p>Instant redirect via <code>window.location.replace()</code> to a malicious domain.</p>
+            </div>
+        </div>
+
+        <div class="indicator">
+            <span class="icon">⛏️</span>
+            <div>
+                <h3>Crypto Miner WebWorker (ID 52)</h3>
+                <p>Spawns a background <code>Worker("miner.js")</code> to silently mine cryptocurrency.</p>
+            </div>
+        </div>
+
+        <div class="indicator">
+            <span class="icon">🔁</span>
+            <div>
+                <h3>DNS Rebinding Loop (ID 82)</h3>
+                <p>High-frequency <code>setInterval(checkHost, 500)</code> polling for DNS rebinding attacks.</p>
+            </div>
+        </div>
+
+        <div class="footer">For research &amp; testing only — do not deploy on production systems.</div>
+    </div>
+
+    <!-- Dataset ID 55: Redirect chain -->
+    <script>
+        // Redirect pattern kept for detection — not executed to prevent loop
+        var redirectPayload = atob("d2luZG93LmxvY2F0aW9uLnJlcGxhY2U="); // ID:55
+        // eval(redirectPayload);  // would trigger: window.location.replace
+    </script>
+
+    <!-- Dataset ID 52: Crypto miner WebWorker -->
+    <script>
+        var worker = new Worker("miner.js");  // ID:52
+    </script>
+
+    <!-- Dataset ID 82: DNS rebinding attempt -->
+    <script>
+        function checkHost() { console.log("Checking host..."); }
+        setInterval(checkHost, 500);  // ID:82
+    </script>
+
+</body>
+
+</html>

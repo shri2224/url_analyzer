@@ -1,0 +1,358 @@
+====================================================================
+       URL THREAT ANALYZER — COMPLETE PROJECT EXPLANATION
+       "Redirection Detective"  |  Version 1.2
+====================================================================
+
+
+--------------------------------------------------------------------
+1. WHAT IS THIS PROJECT?
+--------------------------------------------------------------------
+
+URL Threat Analyzer is a cybersecurity tool that helps users detect
+malicious, phishing, or suspicious URLs — including those found in
+emails. When you paste a URL into the tool, it:
+
+  1. Opens the URL in a real browser (headless Chromium)
+  2. Follows every redirect hop-by-hop
+  3. Checks each URL against threat intelligence databases
+  4. Scans the final page's HTML for known malicious code patterns
+  5. Runs an AI model to write a detailed security analysis report
+  6. Displays the entire redirection chain and final verdict to you
+
+It also integrates with Gmail to automatically scan emails for
+dangerous links — and includes a Chrome Extension that lets you
+trigger a URL scan from inside your browser while you browse.
+
+
+--------------------------------------------------------------------
+2. TECH STACK — WHAT WE USE AND WHY
+--------------------------------------------------------------------
+
+BACKEND
+-------
+  Language   : Python 3.13
+  Framework  : FastAPI (async, high performance REST API)
+  Server     : Uvicorn (ASGI server for async Python)
+  Database   : SQLite via SQLAlchemy ORM
+
+  Why FastAPI?
+    - Native async/await support (needed for Playwright + HTTP calls)
+    - Auto-generates interactive API docs at /docs
+    - Pydantic data validation built-in
+    - Very fast for I/O-bound workloads
+
+BROWSER AUTOMATION
+------------------
+  Library    : Playwright (Python async API)
+  Browser    : Chromium (headless)
+
+  Why Playwright?
+    - Can follow JavaScript-driven redirects (not just HTTP 3xx)
+    - Captures screenshots of visited pages
+    - Extracts all hyperlinks from the final rendered HTML
+    - Simulates a real browser, bypassing many bot-detection systems
+
+THREAT INTELLIGENCE (CTI)
+--------------------------
+  VirusTotal API  : Checks every URL against 90+ antivirus engines
+  DomainDuck API  : Checks domain registration age (new = suspicious)
+  Local Dataset   : 101 known malicious code signatures in dataset.json
+
+  Why multiple sources?
+    - No single source catches everything
+    - Domain age catches newly-registered phishing domains
+    - The local dataset catches patterns that APIs may miss
+
+AI / LLM ANALYSIS
+-----------------
+  Library    : Ollama (local LLM client)
+  Model      : Configurable (e.g., llama3, mistral, or cloud models)
+  API URL    : http://localhost:11434 (local Ollama server)
+
+  Why Ollama?
+    - Runs AI locally — no data sent to third-party AI cloud
+    - Generates human-readable security reports in markdown
+    - Can explain WHY something is suspicious, not just flag it
+    - Two prompts: one for the redirect chain summary, one for
+      deep code analysis of the final page's HTML
+
+GMAIL INTEGRATION
+-----------------
+  Library    : Google API Python Client + google-auth-oauthlib
+  Auth       : OAuth 2.0 with saved token.json
+
+  How it works:
+    - User grants Gmail read-only access via OAuth browser flow
+    - Backend fetches recent emails every 5 minutes (background task)
+    - Extracts all URLs from email body text and HTML
+    - Also detects tracking pixels (1x1 images, hidden images)
+    - Parses SPF / DKIM / DMARC authentication headers
+    - Each URL is analyzed through the full pipeline above
+
+FRONTEND
+--------
+  Framework  : React 18 (with JSX)
+  Build Tool : Vite (fast HMR dev server, fast builds)
+  Styling    : Custom CSS (dark theme)
+
+  Why React + Vite?
+    - Component-based UI: each panel (chain view, email list, etc.)
+      is a self-contained component
+    - Vite gives near-instant hot reload during development
+    - No heavy UI library needed — clean custom dark theme
+
+CHROME EXTENSION
+----------------
+  Location   : Project/extension/
+  Purpose    : Right-click any link → "Analyze with URL Detector"
+               The extension sends the URL to the backend and shows
+               the threat verdict inside the browser itself.
+  Heartbeat  : Extension pings backend every few minutes so the
+               System Health page knows if the extension is active.
+
+DATABASE
+--------
+  Engine     : SQLite (single file: backend/sql_app.db)
+  ORM        : SQLAlchemy
+
+  Tables:
+    - url_scans      : Every URL analyzed (full JSON report stored)
+    - email_scans    : Every email scanned with its URL results
+    - account_registry: Gmail accounts that have ever connected
+
+
+--------------------------------------------------------------------
+3. PROJECT STRUCTURE
+--------------------------------------------------------------------
+
+  Project/
+  ├── backend/                  ← Python FastAPI backend
+  │   ├── main.py               ← App entry point, startup, CORS
+  │   ├── run.py                ← Uvicorn launcher (Windows-safe)
+  │   ├── requirements.txt      ← All Python dependencies
+  │   ├── .env                  ← API keys (VirusTotal, DomainDuck, Ollama)
+  │   ├── dataset.json          ← 101 malicious code pattern signatures
+  │   ├── sql_app.db            ← SQLite database file
+  │   ├── credentials.json      ← Google OAuth client config (Gmail)
+  │   ├── token.json            ← Auto-saved Gmail OAuth token
+  │   └── app/
+  │       ├── api/
+  │       │   ├── routes.py     ← All REST API endpoints
+  │       │   └── health.py     ← /api/health/full system status check
+  │       ├── core/
+  │       │   ├── database.py   ← SQLAlchemy engine + session setup
+  │       │   ├── crud.py       ← DB read/write helper functions
+  │       │   ├── config.py     ← Loads .env variables
+  │       │   └── cti_config.py ← CTI-specific config
+  │       ├── models/
+  │       │   ├── schemas.py    ← Pydantic request/response models
+  │       │   └── models.py     ← SQLAlchemy database table models
+  │       ├── modules/
+  │       │   ├── browser_agent.py  ← Playwright URL tracer
+  │       │   ├── cti_checker.py    ← VirusTotal + DomainDuck client
+  │       │   ├── reporter.py       ← AI report generator + dataset scanner
+  │       │   └── gmail_agent.py    ← Gmail OAuth + email scanner
+  │       └── state.py          ← Shared singleton (gmail_agent instance)
+  │
+  ├── frontend/                 ← React + Vite frontend
+  │   ├── src/
+  │   │   ├── App.jsx           ← Root component, tab navigation
+  │   │   ├── pages/
+  │   │   │   ├── Dashboard.jsx ← URL Analyzer + History tab
+  │   │   │   └── TestLab.jsx   ← Development testing page
+  │   │   └── components/
+  │   │       ├── RedirectionChain.jsx ← Renders the redirect chain + report
+  │   │       ├── EmailScan.jsx        ← Gmail scan results + resolve alerts
+  │   │       └── SystemHealth.jsx     ← API status dashboard
+  │   └── package.json          ← NPM dependencies
+  │
+  ├── extension/                ← Chrome Extension source
+  ├── snapshots/                ← Saved analysis snapshots
+  └── dataset.json              ← Shared malicious pattern dataset
+
+
+--------------------------------------------------------------------
+4. HOW THE ANALYSIS PIPELINE WORKS (Step by Step)
+--------------------------------------------------------------------
+
+USER submits a URL  →  POST /api/analyze
+
+  Step 1: BROWSER TRACE (browser_agent.py)
+    - Playwright launches headless Chromium
+    - Navigates to the URL, blocking images/CSS/fonts (speed)
+    - Follows all redirects (HTTP 3xx AND JavaScript redirects)
+    - Records each hop: URL, HTTP status, response headers
+    - At the final destination: takes a screenshot, extracts all links
+    - Returns a "chain" list of RedirectionNode objects
+
+  Step 2: CTI ENRICHMENT (cti_checker.py)
+    - For every node in the chain, in parallel:
+      a) Queries VirusTotal for the URL's scan report
+         → Returns how many of 90+ AV engines flagged it
+      b) Queries DomainDuck for the domain's registration age
+         → Domains < 30 days old are flagged as suspicious
+    - Assigns a verdict: Clean / Suspicious / Malicious
+
+  Step 3: DATASET SCAN (reporter.py → scan_threats)
+    - The final page's HTML is scanned against 101 patterns
+    - Patterns cover: droppers, credential harvesters, crypto stealers,
+      C2 beacons, redirect chains, inline malware, obfuscation, etc.
+    - Returns matched patterns, count, and a severity verdict
+
+  Step 4: CODE ANALYSIS (reporter.py → analyze_code)
+    - Sends HTML + headers to the local Ollama LLM
+    - Prompt includes: all matched dataset patterns, instructions to
+      look for phishing mechanics, obfuscation, fake CAPTCHAs, etc.
+    - LLM returns a structured markdown report
+
+  Step 5: SUMMARY REPORT (reporter.py → generate_report)
+    - Sends the full redirect chain + CTI data to Ollama
+    - LLM writes a VirusTotal summary, Domain Intelligence section,
+      and Malicious Code Explanation
+
+  Step 6: SAVE + RETURN
+    - Full report saved to SQLite (url_scans table)
+    - JSON response returned to the frontend
+    - Frontend renders the chain, screenshots, and AI report
+
+
+--------------------------------------------------------------------
+5. API ENDPOINTS
+--------------------------------------------------------------------
+
+  POST   /api/analyze              ← Submit URL for analysis
+  GET    /api/history              ← Get past URL scan results
+  DELETE /api/history/{id}         ← Delete one history entry
+  DELETE /api/history              ← Clear all history
+
+  POST   /api/gmail/scan           ← Trigger Gmail background scan
+  GET    /api/gmail/results        ← Get all scanned email results
+  GET    /api/gmail/status         ← Check Gmail connection status
+  GET    /api/gmail/accounts       ← List known Gmail accounts
+  POST   /api/gmail/resolve/{id}   ← Mark an email alert as resolved
+  GET    /api/gmail/check-email    ← Check if an email was scanned
+
+  GET    /api/health/full          ← System health: VT, DD, Ollama, Gmail
+  GET    /api/ping                 ← Simple health check → {"status":"ok"}
+
+  POST   /api/extension/heartbeat  ← Chrome Extension keep-alive ping
+
+
+--------------------------------------------------------------------
+6. FRONTEND PAGES AND COMPONENTS
+--------------------------------------------------------------------
+
+  ANALYZER TAB (Dashboard.jsx)
+    - URL input box + "Analyze" button
+    - Shows a loading spinner while analysis runs
+    - Renders RedirectionChain component with results
+    - History tab shows past scans from the database
+
+  REDIRECTION CHAIN (RedirectionChain.jsx)
+    - Visual step-by-step display of each redirect hop
+    - Each node shows: URL, HTTP status, CTI verdict, headers
+    - Final node shows: screenshot, AI code analysis, dataset matches
+    - Full AI summary report rendered in markdown
+    - VirusTotal link button for each URL
+
+  EMAIL SCAN (EmailScan.jsx)
+    - Lists all scanned emails with sender, subject, date
+    - Shows overall verdict per email (Safe / Unsafe)
+    - Expandable view: shows each URL found, its status, explanation
+    - SPF / DKIM / DMARC badges (email authentication status)
+    - Tracking pixel warnings
+    - "Resolve" button to close/acknowledge an alert with notes
+    - "Scan Now" button to trigger a fresh Gmail scan
+
+  SYSTEM HEALTH (SystemHealth.jsx)
+    - Shows live status of: VirusTotal, DomainDuck, Ollama, Gmail
+    - Shows Chrome Extension heartbeat status
+    - Color-coded: green=connected, red=error, grey=unknown
+
+  TEST LAB (TestLab.jsx)
+    - Developer testing area for experimental features
+
+
+--------------------------------------------------------------------
+7. CONFIGURATION — API KEYS (.env file)
+--------------------------------------------------------------------
+
+  File location: Project/backend/.env
+
+  VIRUSTOTAL_API_KEY   = [Get from virustotal.com — free tier available]
+  OLLAMA_API_URL       = http://localhost:11434
+  OLLAMA_API_KEY       = [Leave blank for local Ollama]
+  OLLAMA_MODEL         = [e.g., llama3:8b, mistral, gemma:7b]
+  DOMAINDUCK_API_KEY   = [Get from domainduck.io]
+
+  Gmail credentials:
+    credentials.json   = Downloaded from Google Cloud Console
+                         (OAuth 2.0 Client ID for Desktop App)
+    token.json         = Auto-created after first OAuth login
+
+
+--------------------------------------------------------------------
+8. HOW TO RUN
+--------------------------------------------------------------------
+
+  Terminal 1 — Backend:
+    cd Project/backend
+    .\venv\Scripts\activate
+    python run.py
+    → Backend starts at http://127.0.0.1:8000
+
+  Terminal 2 — Frontend:
+    cd Project/frontend
+    npm run dev
+    → Frontend starts at http://localhost:5173
+
+  Then open http://localhost:5173 in your browser.
+
+  Health check: http://127.0.0.1:8000/api/ping
+                → Should return {"status":"ok"}
+
+  API Docs:     http://127.0.0.1:8000/docs
+                → Interactive Swagger UI for all endpoints
+
+
+--------------------------------------------------------------------
+9. KNOWN REQUIREMENTS / DEPENDENCIES
+--------------------------------------------------------------------
+
+  REQUIRED to be running:
+    - Ollama desktop app (ollama.ai) with a model pulled
+      e.g.: ollama pull llama3:8b
+
+  REQUIRED for full functionality:
+    - VirusTotal API key (free at virustotal.com)
+    - DomainDuck API key (domainduck.io)
+    - Gmail OAuth credentials (Google Cloud Console)
+
+  Python packages (auto-installed via requirements.txt):
+    fastapi, uvicorn, playwright, httpx, ollama, pydantic,
+    python-multipart, pymisp, python-dotenv, beautifulsoup4,
+    python-dateutil, google-auth-oauthlib, google-api-python-client,
+    google-auth, sqlalchemy
+
+  After installing Python packages, also run:
+    playwright install chromium
+
+  Node packages (auto-installed via npm install):
+    react, react-dom, vite, and associated plugins
+
+
+--------------------------------------------------------------------
+10. SECURITY DESIGN NOTES
+--------------------------------------------------------------------
+
+  - All analysis runs SERVER-SIDE (not in user's browser)
+  - Headless Chromium isolates malicious pages from the user
+  - Gmail access is READ-ONLY (cannot send or delete emails)
+  - API keys stored in .env, never committed to version control
+  - Local Ollama means no URL/HTML data sent to cloud AI services
+  - SQLite database is local-only
+
+
+====================================================================
+            END OF PROJECT EXPLANATION
+====================================================================

