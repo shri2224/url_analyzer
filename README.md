@@ -22,6 +22,18 @@ It also integrates with Gmail to automatically scan emails for dangerous links, 
 
 ---
 
+## 🔍 How It Works (The Analysis Pipeline)
+
+When a URL is submitted for analysis, the system performs the following step-by-step pipeline:
+
+1. **Browser Trace:** A headless Chromium browser (via Playwright) navigates to the URL. It silently follows every single redirect (both HTTP `3xx` codes and JavaScript-driven redirects), recording each hop along the way.
+2. **Data Extraction:** At the final destination, the headless browser takes a full screenshot of the page and extracts all links and HTML content from the fully rendered page.
+3. **Threat Enrichment (CTI):** Every URL in the redirect chain is queried against VirusTotal (for antivirus engine flags) and DomainDuck (to flag newly registered, suspicious domains).
+4. **Dataset Scan:** The final HTML is scanned against a local dataset of known malicious code patterns (e.g., credential harvesters, crypto stealers, droppers).
+5. **AI Code Analysis:** The extracted HTML, headers, and dataset matches are sent to a local LLM via Ollama. The AI analyzes the code structure and generates a detailed, human-readable security report explaining the threat verdict.
+
+---
+
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed and set up:
@@ -137,3 +149,7 @@ npm run dev
 - **Local Execution:** All AI analysis runs locally via Ollama. No page content is sent to third-party AI clouds.
 - **Isolation:** Headless Chromium isolates potentially malicious pages from your actual browser.
 - **Read-Only Email Access:** Gmail integration uses read-only scopes. It cannot send or delete emails.
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
