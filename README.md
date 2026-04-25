@@ -150,6 +150,3 @@ npm run dev
 - **Isolation:** Headless Chromium isolates potentially malicious pages from your actual browser.
 - **Read-Only Email Access:** Gmail integration uses read-only scopes. It cannot send or delete emails.
 
-## 📄 License
-
-This project is open-source and available under the MIT License.
